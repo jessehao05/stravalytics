@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 
 interface FAQItem {
   id: number;
@@ -8,10 +9,14 @@ interface FAQItem {
 }
 
 const FAQ = () => {
-  const [activeId, setActiveId] = useState<number | null>(null);
+  const [activeIds, setActiveIds] = useState<number[]>([]);
 
   const toggleFAQ = (id: number) => {
-    setActiveId(activeId === id ? null : id);
+    setActiveIds(prevIds =>
+      prevIds.includes(id)
+        ? prevIds.filter(activeId => activeId !== id)
+        : [...prevIds, id]
+    );
   };
 
   const faqData: FAQItem[] = [
@@ -48,28 +53,27 @@ const FAQ = () => {
         <Link to="/" className="text-[#09348F] hover:text-[#5171b5] no-underline cursor-pointer">BACK</Link>
       </div>
 
+      
+
       <div className="flex flex-col items-center px-4">
         <div className="text-[1.75rem] font-bold mb-8 text-center">FAQs</div>
 
-        {faqData.map((faq) => (
+        {faqData.map((faq, index) => (
           <div
             key={faq.id}
-            className="text-left border-b-2 border-[#dfdfdf] max-w-[700px] w-full cursor-pointer"
-            onClick={() => toggleFAQ(faq.id)}
+            className={`text-left max-w-[700px] w-full ${index < faqData.length - 1 ? 'border-b-2 border-[#dfdfdf]' : ''}`}
           >
-            <div className="flex justify-between items-center text-xl font-medium my-6">
+            <div
+              className="flex justify-between items-center text-xl font-medium my-6 cursor-pointer"
+              onClick={() => toggleFAQ(faq.id)}
+            >
               <span>{faq.question}</span>
 
-              <svg
-                width="15"
-                height="10"
-                viewBox="0 0 42 25"
-                className={`transition-transform duration-300 ${activeId === faq.id ? 'rotate-180' : ''}`}
-              >
-                <path d="M3 3L21 21L39 3" stroke="black" strokeWidth="7" strokeLinecap="round"/>
-              </svg>
+              <ChevronDown
+                className={`transition-transform duration-300 ${activeIds.includes(faq.id) ? 'rotate-180' : ''}`}
+              />
             </div>
-            <div className={`overflow-hidden transition-all duration-300 ${activeId === faq.id ? 'max-h-[500px]' : 'max-h-0'}`}>
+            <div className={`overflow-hidden transition-all duration-300 ${activeIds.includes(faq.id) ? 'max-h-[500px]' : 'max-h-0'}`}>
               {faq.answer}
             </div>
           </div>
