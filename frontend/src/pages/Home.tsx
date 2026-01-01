@@ -25,7 +25,7 @@ const Home = () => {
       formData.append('file', file);
       formData.append('action', 'upload');
 
-      const response = await fetch('http://localhost:5000/api/process', {
+      const response = await fetch('http://localhost:8000/api/process', {
         method: 'POST',
         body: formData,
       });
@@ -50,7 +50,7 @@ const Home = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/process', {
+      const response = await fetch('http://localhost:8000/api/process', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
