@@ -16,10 +16,10 @@ export interface ResultsData {
     'Elevation Gain (ft)': number;
   }>;
   charts: {
-    distanceHist: any;
-    paceDistrib: any;
-    monthDistrib: any;
-    pie: any;
+    distanceHist: string;
+    paceDistrib: string;
+    monthDistrib: string;
+    pie: string;
   };
 }
 
