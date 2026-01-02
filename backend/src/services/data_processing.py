@@ -6,12 +6,16 @@ MONTH_ARR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct
 
 def process_example_data():
     """Process the example CSV file"""
+    # print("Processing example data")
+
     filepath = 'static/example.csv'
     df = pd.read_csv(filepath)
     return process_dataframe(df)
 
 def process_strava_data(file_contents: bytes) -> dict:
     """Process uploaded CSV file"""
+    # print("Processing submitted data")
+
     import io
     
     # Convert bytes to DataFrame
