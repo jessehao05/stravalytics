@@ -50,12 +50,12 @@ const Home = () => {
     setIsLoading(true);
 
     try {
+      const formData = new FormData();
+      formData.append('action', 'default');
+
       const response = await fetch('http://localhost:8000/api/process', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ action: 'default' }),
+        body: formData,
       });
 
       if (!response.ok) {
